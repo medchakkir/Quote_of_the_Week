@@ -77,11 +77,7 @@ To run this script automatically every Sunday, you can:
 
 ## Contributing
 
-Feel free to contribute to this project by:
-
-1. Adding more inspirational quotes to `quotes.txt`
-2. Improving the email formatting
-3. Adding new features or functionality
+Feel free to submit issues and enhancement requests!
 
 ## License
 
