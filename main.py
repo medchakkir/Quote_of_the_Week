@@ -23,7 +23,7 @@ required_vars = {
     "SENDER_PASSWORD": sender_password,
 }
 
-missing_vars = [var for var in required_vars.values() if var is None]
+missing_vars = [var for var, value in required_vars.items() if value is None]
 if missing_vars:
     raise ValueError(f"Missing required environment variables: {', '.join(missing_vars)}")
 
