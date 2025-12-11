@@ -1,4 +1,4 @@
-# Quote of the Week
+# Quote of the Day
 
 An automated email service that sends inspirational quotes via email. This project uses Python to fetch quotes from an API and sends them via email using Gmail SMTP.
 
@@ -25,8 +25,8 @@ An automated email service that sends inspirational quotes via email. This proje
 1. Clone this repository:
 
 ```bash
-git clone https://github.com/<username>/Quote_of_the_Week.git
-cd Quote_of_the_Week
+git clone https://github.com/<username>/Day.git
+cd Quote_of_the_Day
 ```
 
 2. Install required dependencies:
@@ -85,7 +85,7 @@ The script includes comprehensive error handling for:
 
 To run this script automatically on a schedule, you can:
 
-1. **Windows Task Scheduler**: Create a scheduled task to run the script daily/weekly
+1. **Windows Task Scheduler**: Create a scheduled task to run the script daily
 2. **Linux/Mac Cron Jobs**: Add a cron job to execute the script at specified intervals
 3. **Cloud Services**: Deploy to AWS Lambda, Google Cloud Functions, or similar services
 4. **GitHub Actions**: Set up a scheduled workflow to run the script
@@ -93,7 +93,7 @@ To run this script automatically on a schedule, you can:
 Example cron job (runs daily at 9 AM):
 
 ```bash
-0 9 * * * /usr/bin/python3 /path/to/Quote_of_the_Week/main.py
+0 9 * * * /usr/bin/python3 /path/to/Quote_of_the_Day/main.py
 ```
 
 ## Security Notes
