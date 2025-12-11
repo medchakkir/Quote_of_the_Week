@@ -1,23 +1,24 @@
 # Quote of the Week
 
-An automated email service that sends an inspirational quote every Sunday to help start your week with motivation and positivity. This project uses Python to randomly select quotes from a curated collection and sends them via email.
+An automated email service that sends inspirational quotes via email. This project uses Python to fetch quotes from an API and sends them via email using Gmail SMTP.
 
 ## Features
 
-- Automated weekly quote delivery
-- Curated collection of inspirational quotes
-- Email delivery system
-- Random quote selection
-- Runs automatically every Sunday
+- API-based quote fetching
+- Email delivery system via Gmail SMTP
+- Environment variable configuration for secure credential management
+- Comprehensive error handling for API and email operations
+- Easy to automate with task schedulers
 
 ## Requirements
 
 - Python 3.x
-- SMTP access (Gmail SMTP server used in this implementation)
-- Required Python packages:
-  - smtplib (built into Python standard library)
-  - datetime (built into Python standard library)
-  - random (built into Python standard library)
+- Gmail account with App Password enabled
+- API access (quote API endpoint with API key)
+- Required Python packages (see `requirements.txt`):
+  - `python-dotenv` - For loading environment variables
+  - `requests` - For making API calls to fetch quotes
+  - `smtplib` - Built into Python standard library for email sending
 
 ## Installation
 
@@ -28,15 +29,31 @@ git clone https://github.com/<username>/Quote_of_the_Week.git
 cd Quote_of_the_Week
 ```
 
-2. Configure your email settings:
-   - Update the email configuration in `main.py`:
-     - `MY_EMAIL`: Your Gmail address
-     - `MY_PASSWORD`: Your Gmail app password
-     - `RECEIVER`: The recipient's email address
+2. Install required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Create a `.env` file in the project root with the following variables:
+
+```env
+API_KEY=your_api_key_here
+API_ENDPOINT=https://api.api-ninjas.com/v2/quoteoftheday
+SENDER_EMAIL=your_email@gmail.com
+RECEIVER_EMAIL=recipient@example.com
+SENDER_PASSWORD=your_gmail_app_password
+```
+
+**Important:**
+
+- Replace all placeholder values with your actual credentials
+- Never commit the `.env` file to version control
+- For Gmail, use an [App Password](https://support.google.com/accounts/answer/185833) instead of your regular password
 
 ## Usage
 
-The script is designed to run automatically every Sunday. To run it manually:
+To run the script:
 
 ```bash
 python main.py
@@ -44,36 +61,48 @@ python main.py
 
 ### How It Works
 
-1. The script checks if it's Sunday (weekday == 6)
-2. If it is Sunday:
-   - Reads quotes from `quotes.txt`
-   - Randomly selects one quote
-   - Sends the quote via email
-3. The email includes:
-   - Subject: "Quote of the Week"
-   - Body: The selected inspirational quote
+1. The script loads environment variables from `.env` file
+2. Validates that all required environment variables are present
+3. Fetches a quote from the configured API endpoint using the API key
+4. Displays the quote in the console
+5. Sends the quote via email using Gmail SMTP
+6. The email includes:
+   - Subject: "Quote of the Day"
+   - Body: The fetched quote with author attribution
 
-### Quote Collection
+### Error Handling
 
-The project includes a curated collection of over 100 inspirational quotes in `quotes.txt`. Each quote is formatted as:
+The script includes comprehensive error handling for:
 
-```
-"Quote text" - Author
-```
+- Missing environment variables
+- API request failures (network errors, timeouts, HTTP errors)
+- JSON parsing errors
+- SMTP authentication failures
+- General SMTP errors
+- Unexpected exceptions
 
 ## Setting Up Automated Execution
 
-To run this script automatically every Sunday, you can:
+To run this script automatically on a schedule, you can:
 
-1. Use Windows Task Scheduler
-2. Use cron jobs (Linux/Mac)
-3. Use a cloud service like AWS Lambda or Google Cloud Functions
+1. **Windows Task Scheduler**: Create a scheduled task to run the script daily/weekly
+2. **Linux/Mac Cron Jobs**: Add a cron job to execute the script at specified intervals
+3. **Cloud Services**: Deploy to AWS Lambda, Google Cloud Functions, or similar services
+4. **GitHub Actions**: Set up a scheduled workflow to run the script
+
+Example cron job (runs daily at 9 AM):
+
+```bash
+0 9 * * * /usr/bin/python3 /path/to/Quote_of_the_Week/main.py
+```
 
 ## Security Notes
 
-- Never commit your email credentials to version control
-- Use environment variables or a configuration file for sensitive data
-- Consider using Gmail's App Passwords instead of your main password
+- **Never commit your `.env` file** to version control - it contains sensitive credentials
+- Use Gmail's App Passwords instead of your main account password
+- Keep your API key secure and rotate it periodically if compromised
+- Consider using a secrets management service for production deployments
+- The `.env` file is already included in `.gitignore` (if present) to prevent accidental commits
 
 ## Contributing
 
